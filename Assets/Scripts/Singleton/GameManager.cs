@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
         // 추후, 에셋번들이나 어드레서블을 통해서 관리할 필요가 있음
 
         // Resources.Load<T>(path) : Resources 폴더 안의 경로에서 에셋을 찾아 참조함
-        GameManager gameManagerPrefab = Resources.Load<GameManager>("Managers/GameManager");
-        Instantiate(gameManagerPrefab);
+        //GameManager gameManagerPrefab = Resources.Load<GameManager>("Managers/GameManager");
+        //Instantiate(gameManagerPrefab);
     }
 
     // 싱글톤 지우기
