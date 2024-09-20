@@ -21,11 +21,11 @@ public class Eagle : MonoBehaviour
 
     private void Awake()
     {
-        states[(int)State.Idle] = new IdleState();
-        states[(int)State.Trace] = new TraceState();
-        states[(int)State.Return] = new ReturnState();
-        states[(int)State.Attack] = new AttackState();
-        states[(int)State.Dead] = new DeadState();
+        states[(int)State.Idle] = new IdleState(this);
+        states[(int)State.Trace] = new TraceState(this);
+        states[(int)State.Return] = new ReturnState(this);
+        states[(int)State.Attack] = new AttackState(this);
+        states[(int)State.Dead] = new DeadState(this);
     }
     void Start()
     {
@@ -53,9 +53,23 @@ public class Eagle : MonoBehaviour
         states[(int)curState].Enter();
     }
 
-    private class IdleState: BaseState
+    private class EagleState: BaseState
+    {
+        public Eagle eagle;
+
+        public EagleState(Eagle eagle)
+        {
+            this.eagle = eagle;
+        }
+    }
+
+    private class IdleState: EagleState
     {
         private float timer;
+
+        public IdleState(Eagle eagle) : base(eagle){
+
+        }
         public override void Enter()
         {
             timer = 0f;
@@ -72,23 +86,35 @@ public class Eagle : MonoBehaviour
         }
     }
 
-    private class TraceState: BaseState
+    private class TraceState: EagleState
     {
+        public TraceState(Eagle eagle) : base(eagle)
+        {
 
+        }
     }
 
-    private class  ReturnState : BaseState
+    private class  ReturnState : EagleState
     {
-        
+        public ReturnState(Eagle eagle) : base(eagle)
+        {
+
+        }
     }
 
-    private class  AttackState: BaseState
+    private class  AttackState: EagleState
     {
-        
+        public AttackState(Eagle eagle) : base(eagle)
+        {
+
+        }
     }
 
-    private class DeadState: BaseState
+    private class DeadState: EagleState
     {
+        public DeadState(Eagle eagle) : base(eagle)
+        {
 
+        }
     }
 }
