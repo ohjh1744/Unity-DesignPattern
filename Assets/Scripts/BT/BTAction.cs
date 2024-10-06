@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public abstract class BTAction : BTNode
+public  class BTAction : BTNode
 {
-
-    public BTAction( )
+    private Func<BTNodeState> action;
+    public BTAction(Func<BTNodeState>action )
     {
-
+        this.action = action;
     }
 
-    public override abstract BTNodeState Evaluate();
+    public override  BTNodeState Evaluate()
+    {
+        return action();
+    }
 
 }

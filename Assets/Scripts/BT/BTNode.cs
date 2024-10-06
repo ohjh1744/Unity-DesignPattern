@@ -8,7 +8,7 @@ public enum BTNodeState
     Failure,
     Running
 }
-public abstract class BTNode : MonoBehaviour
+public abstract class BTNode
 {
     protected List<BTNode> children = new List<BTNode>();
 
