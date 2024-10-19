@@ -1,8 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static BaseUI;
 
+//UIBinding
+//실제 게임에선 UI개수가 무지하게 많기 때문에, 
+// 인스펙터상에서 참조하여 관리하기가 쉽지 않음.
+// 때문에 스크립트상에서 바인딩하도록함.
 public class BaseUI : MonoBehaviour
 {
     private Dictionary<string, GameObject> gameObjectDic;
@@ -11,7 +20,9 @@ public class BaseUI : MonoBehaviour
     // 빠른 시간에 게임오브젝트만 바인딩
     protected void Bind()
     {
+        //false로 하면 비활성화 컴포넌트는 안찾음, true는 비활성화 활성화 모두 찾음.
         Transform[] transforms = GetComponentsInChildren<Transform>(true);
+        // 2* 2 크기를 4배로 일단.
         gameObjectDic = new Dictionary<string, GameObject>(transforms.Length << 2);
         foreach (Transform child in transforms)
         {
@@ -54,10 +65,11 @@ public class BaseUI : MonoBehaviour
     {
         (string, System.Type) key = (name, typeof(T));
 
+        //컴포넌트 딕셔너리에 이미 있을때(찾아본 적 있는 경우): 이미 찾은걸 줌.
         componentDic.TryGetValue(key, out Component component);
         if (component != null)
             return component as T;
-
+        // 컴포넌트 딕셔너리에 아직 없다면 찾은 후 딕셔너리에 추가하고 줌.
         gameObjectDic.TryGetValue(name, out GameObject gameObject);
         if (gameObject == null)
             return null;
@@ -68,5 +80,92 @@ public class BaseUI : MonoBehaviour
 
         componentDic.TryAdd(key, component);
         return component as T;
+    }
+
+    public enum EventType { Click, Enter, Exit , Up, Down, Move, BeginDrag, EndDrag, Drag, Drop}
+    public void AddEvent(in string name, EventType eventType, UnityAction<PointerEventData> callback)
+    {
+        gameObjectDic.TryGetValue(name, out GameObject gameObject);
+        if (gameObject == null)
+            return;
+
+        EventReceiver receiver = gameObject.GetOrAddComponent<EventReceiver>();
+        switch (eventType)
+        {
+            case EventType.Click:
+                receiver.OnClicked += callback;
+                break;
+            case EventType.Enter:
+                receiver.OnEntered += callback;
+                break;
+            case EventType.Exit:
+                receiver.OnExited += callback;
+                break;
+            case EventType.Up:
+                receiver.OnUped += callback;
+                break;
+            case EventType.Down:
+                receiver.OnDowned += callback;
+                break;
+            case EventType.Move:
+                receiver.OnMoved += callback;
+                break;
+            case EventType.BeginDrag:
+                receiver.OnBeginDraged += callback;
+                break;
+            case EventType.EndDrag:
+                receiver.OnEndDraged += callback;
+                break;
+            case EventType.Drag:
+                receiver.OnDraged += callback;
+                break;
+            case EventType.Drop:
+                receiver.OnDroped += callback;
+                break;
+
+        }
+    }
+
+    public void RemoveEvent(in string name, EventType eventType,UnityAction<PointerEventData> callback)
+    {
+        gameObjectDic.TryGetValue(name, out GameObject gameObject);
+        if (gameObject == null)
+            return;
+
+        EventReceiver receiver = gameObject.GetOrAddComponent<EventReceiver>();
+        switch (eventType)
+        {
+            case EventType.Click:
+                receiver.OnClicked -= callback;
+                break;
+            case EventType.Enter:
+                receiver.OnEntered -= callback;
+                break;
+            case EventType.Exit:
+                receiver.OnExited -= callback;
+                break;
+            case EventType.Up:
+                receiver.OnUped -= callback;
+                break;
+            case EventType.Down:
+                receiver.OnDowned -= callback;
+                break;
+            case EventType.Move:
+                receiver.OnMoved -= callback;
+                break;
+            case EventType.BeginDrag:
+                receiver.OnBeginDraged -= callback;
+                break;
+            case EventType.EndDrag:
+                receiver.OnEndDraged -= callback;
+                break;
+            case EventType.Drag:
+                receiver.OnDraged -= callback;
+                break;
+            case EventType.Drop:
+                receiver.OnDroped -= callback;
+                break;
+
+        }
     }
 }

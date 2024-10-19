@@ -5,8 +5,8 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class EventReceiver : MonoBehaviour
-    , IPointerClickHandler
-    , IPointerEnterHandler
+    , IPointerClickHandler 
+    , IPointerEnterHandler 
     , IPointerExitHandler
     , IPointerUpHandler
     , IPointerDownHandler
@@ -27,6 +27,7 @@ public class EventReceiver : MonoBehaviour
     public event UnityAction<PointerEventData> OnDraged;
     public event UnityAction<PointerEventData> OnDroped;
 
+    //
     public void OnPointerClick(PointerEventData eventData)
     {
         OnClicked?.Invoke(eventData);
@@ -57,20 +58,34 @@ public class EventReceiver : MonoBehaviour
         OnMoved?.Invoke(eventData);
     }
 
+    // 1.drag 이벤트를 사용해 물체 드래그 이동 구현
+    //Vector3 pos;
+    //2. 오브젝트 drag and drob을 
     public void OnBeginDrag(PointerEventData eventData)
     {
         OnBeginDraged?.Invoke(eventData);
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        OnEndDraged?.Invoke(eventData);
+        //pos = transform.position;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         OnDraged?.Invoke(eventData);
+        //Plane plane = new Plane(Vector3.up, pos);
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //if(plane.Raycast(ray, out float distance))
+        //{
+        //    transform.position = ray.GetPoint(distance);
+        //}
+        // 단순히 x, y 좌표만 이용하여 이동할때
+        //transform.position += (Vector3)eventData.delta;
     }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        OnEndDraged?.Invoke(eventData);
+        //transform.position = Vector3.pos;
+    }
+
 
     public void OnDrop(PointerEventData eventData)
     {
