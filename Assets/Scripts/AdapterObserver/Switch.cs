@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Switch : MonoBehaviour
 {
-    public void Press()
+    public void Press(Player player)
     {
         Debug.Log("스위치를 눌렀다");
     }

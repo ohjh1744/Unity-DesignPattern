@@ -104,6 +104,7 @@ public class BTPlayerController : MonoBehaviour
 
     private BTNodeState Zoom()
     {
+        Debug.Log("hi");
         if (Input.GetMouseButton(1))
         {
             attackText[1].text = "Zoom";

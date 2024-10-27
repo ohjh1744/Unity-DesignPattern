@@ -12,6 +12,6 @@ public class InitManager : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initialize()
     {
-        GameObject.Instantiate(Resources.Load<GameManager>("Manager/GameManager"));
+        //GameObject.Instantiate(Resources.Load<GameManager>("Manager/GameManager"));
     }
 }
