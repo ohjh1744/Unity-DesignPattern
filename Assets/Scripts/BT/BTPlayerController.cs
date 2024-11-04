@@ -18,27 +18,35 @@ public class BTPlayerController : MonoBehaviour
     private void Start()
     {
         //노드 생성
-        root = new BTParallel();
-        BTNode MoveSequence = new BTSequence();
-        BTNode AttackSelector = new BTSelector();
+        //root = new BTParallel();
+        //BTNode MoveSequence = new BTSequence();
+        //BTNode AttackSelector = new BTSelector();
+        //BTNode WalkAction = new BTAction(Walk);
+        //BTNode RunAction = new BTAction(Run);
+        //BTNode SlashAction = new BTAction(Slash);
+        //BTNode ThrowAction = new BTAction(Throw);
+        //BTNode ZoomFireParallel = new BTParallel();
+        //BTNode ZoomAction = new BTAction(Zoom);
+        //BTNode FireAction = new BTAction(Fire);
+
+        ////노드 연결
+        //root.AddChild(MoveSequence);
+        //root.AddChild(AttackSelector);
+        //MoveSequence.AddChild(WalkAction);
+        //MoveSequence.AddChild(RunAction);
+        //AttackSelector.AddChild(SlashAction);
+        //AttackSelector.AddChild(ThrowAction);
+        //AttackSelector.AddChild(ZoomFireParallel);
+        //ZoomFireParallel.AddChild(ZoomAction);
+        //ZoomFireParallel.AddChild(FireAction);
+
+        root = new BTSelector();
         BTNode WalkAction = new BTAction(Walk);
         BTNode RunAction = new BTAction(Run);
         BTNode SlashAction = new BTAction(Slash);
-        BTNode ThrowAction = new BTAction(Throw);
-        BTNode ZoomFireParallel = new BTParallel();
-        BTNode ZoomAction = new BTAction(Zoom);
-        BTNode FireAction = new BTAction(Fire);
 
-        //노드 연결
-        root.AddChild(MoveSequence);
-        root.AddChild(AttackSelector);
-        MoveSequence.AddChild(WalkAction);
-        MoveSequence.AddChild(RunAction);
-        AttackSelector.AddChild(SlashAction);
-        AttackSelector.AddChild(ThrowAction);
-        AttackSelector.AddChild(ZoomFireParallel);
-        ZoomFireParallel.AddChild(ZoomAction);
-        ZoomFireParallel.AddChild(FireAction);
+        root.AddChild(WalkAction);
+        root.AddChild(RunAction);
     }
 
     private void Update()
