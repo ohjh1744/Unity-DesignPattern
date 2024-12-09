@@ -58,9 +58,8 @@ public class EventReceiver : MonoBehaviour
         OnMoved?.Invoke(eventData);
     }
 
-    // 1.drag ÀÌº¥Æ®¸¦ »ç¿ëÇØ ¹°Ã¼ µå·¡±× ÀÌµ¿ ±¸Çö
+    // 1.drag ì´ë²¤íŠ¸ë¥¼ ì‚¬ìš©í•´ ë¬¼ì²´ ë“œë˜ê·¸ ì´ë™ êµ¬í˜„ ì£¼ì„ì²˜ë¦¬ë¶€ë¶„. InvokeëŠ” UIbindingì„ ìœ„í•¨.
     //Vector3 pos;
-    //2. ¿ÀºêÁ§Æ® drag and drobÀ» 
     public void OnBeginDrag(PointerEventData eventData)
     {
         OnBeginDraged?.Invoke(eventData);
@@ -76,7 +75,7 @@ public class EventReceiver : MonoBehaviour
         //{
         //    transform.position = ray.GetPoint(distance);
         //}
-        // ´Ü¼øÈ÷ x, y ÁÂÇ¥¸¸ ÀÌ¿ëÇÏ¿© ÀÌµ¿ÇÒ¶§
+        // ë‹¨ìˆœíˆ x, y ì¢Œí‘œë§Œ ì´ìš©í•˜ì—¬ ì´ë™í• ë•Œ
         //transform.position += (Vector3)eventData.delta;
     }
 
